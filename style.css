@@ -5,35 +5,34 @@
 
 .calculadora {
     border: solid black 2px;
-    width: fit-content;
+    width: 10vw;
     padding: 0.5%;
     margin: 10% auto 0%;
+    background-color: rgba(46, 69, 83, 0.823);
 }
 
-.digitos {
+
+ul {
     display: flex;
-}
-
-.digitos > ul {
-    font-size: xx-large;
     gap: 10px;
+    margin: 3%;
     list-style-type: none;
-    display: flex;
+    font-size: xx-large;
 }
 
-.digitos > ul > li {
-    cursor: pointer;
-    background-color: aqua;
-    width: 3vw;
+li {
+    box-shadow: 2px 2px rgb(32, 118, 151);
+    color: rgb(255, 255, 255);
+    width: 10vw;
     text-align: center;
+    padding: 3%;
+    background-color:rgb(44, 78, 231);
 }
 
 #res {
+    min-height: 3.6vh;
+    font-size: xx-large;
     text-align: end;
     margin: 0% 0% 3% 0%;
     border: solid black 2px;
-}
-
-#calcular {
-    background-color: black;
 }
