@@ -15,7 +15,9 @@ var n7 = document.getElementById("7").addEventListener("click", adicionar)
 var n8 = document.getElementById("8").addEventListener("click", adicionar)
 var n9 = document.getElementById("9").addEventListener("click", adicionar)
 
+var raiz = document.getElementById("√").addEventListener("click", adicionar)
 var porcentagem = document.getElementById("%").addEventListener("click", adicionar)
+var potecia = document.getElementById("^").addEventListener("click", adicionar)
 var DC = document.getElementById("DC").addEventListener("click", adicionar)
 var virgula = document.getElementById(".").addEventListener("click", adicionar)
 var parenteses = document.getElementById("()").addEventListener("click", adicionar)
@@ -49,7 +51,10 @@ function adicionar() {
 
     } else if(key == "DC"){
         //faz nada
-    } else {
+    } else if(key == "√") {
+        numerostexto.push("√(")
+        controle++
+    }else {
         numerostexto.push(key)
     }
         res.innerHTML = numerostexto.join("")
@@ -63,15 +68,67 @@ function adicionar() {
             break;
         
         case "=":
-                var ans = eval(numerostexto.join("").toString())
-                res.innerHTML = ans
-                numerostexto.length = 0
-                numerostexto.push(ans)
+                var index = numerostexto.join("").toString().length
+                var string = numerostexto.join("").toString()
+                let novaString = ""
+
+                for(let i = 0; i <= index; i++) {
+                    if(numerostexto.join("").toString("").charAt(i) == "%") {
+                        novaString += "/100"
+
+                    } else if(numerostexto.join("").toString("").charAt(i) == "^") {
+                        novaString += "**"
+
+                    } else if(numerostexto.join("").toString("").charAt(i) == "√") {
+                        let controleRaiz = true
+                        let numeroRaiz = ""
+                        let numeroLoopRaiz = 0
+                        let cortarParenteses = numeroLoopRaiz - 2
+                        let stringRaiz = "Math.sqrt(" + numeroRaiz.toString() + ")"
+
+                        while(controleRaiz == true) {
+                            if(string.charAt(numeroLoopRaiz) == "") {
+                                controleRaiz = false
+                            }
+                            if(string.charAt(numeroLoopRaiz) == ")") {
+                                controleRaiz = false
+                            }
+                            if(numeroLoopRaiz > 0) {
+                                numeroRaiz += string.charAt(numeroLoopRaiz)
+                            }
+                            numeroLoopRaiz++
+                        }
+                        novaString += stringRaiz.slice(0,cortarParenteses)
+                        setTimeout(() => {
+                            if(novaString.charAt(novaString.length-1) != ")") {
+                                novaString += ")"
+                            }
+                        }, 1);
+                        
+                    }else {
+                        novaString += numerostexto.join("").toString("").charAt(i)
+                    }
+                    
+                }
+                try {
+                    var ans;
+                    setTimeout(() => {
+                        ans = eval(novaString)
+                        res.innerHTML = ans
+                    }, 1);
+                } catch(error) {
+                    res.innerHTML = "Syntax error"
+                }
+                setTimeout(() => {
+                    numerostexto.length = 0
+                    numerostexto.push(ans)
+                }, 1);
 
             break;
         case "DC": 
                 let remove = numerostexto.pop()
                 res.innerHTML = numerostexto.join("")
     }
+
 
 }

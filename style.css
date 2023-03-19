@@ -5,7 +5,8 @@
 
 .calculadora {
     border: solid black 2px;
-    width: 10vw;
+    width: 14vw;
+    height: 30vh;
     padding: 0.5%;
     margin: 10% auto 0%;
     background-color: rgba(46, 69, 83, 0.823);
@@ -23,13 +24,14 @@ ul {
 li {
     box-shadow: 2px 2px rgb(32, 118, 151);
     color: rgb(255, 255, 255);
-    width: 10vw;
+    width: 12vw;
     text-align: center;
-    padding: 3%;
+    padding: 1%;
     background-color:rgb(44, 78, 231);
 }
 
 #res {
+    overflow-wrap: break-word;
     min-height: 3.6vh;
     font-size: xx-large;
     text-align: end;
