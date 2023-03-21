@@ -15,6 +15,7 @@ var n7 = document.getElementById("7").addEventListener("click", adicionar)
 var n8 = document.getElementById("8").addEventListener("click", adicionar)
 var n9 = document.getElementById("9").addEventListener("click", adicionar)
 
+var logaritmo = document.getElementById("log").addEventListener("click", adicionar)
 var raiz = document.getElementById("√").addEventListener("click", adicionar)
 var porcentagem = document.getElementById("%").addEventListener("click", adicionar)
 var potecia = document.getElementById("^").addEventListener("click", adicionar)
@@ -30,6 +31,7 @@ var adicionar = document.getElementById("+").addEventListener("click", adicionar
 var res = document.getElementById("res")
 
 var controle = 0
+
 
 function adicionar() {
 
@@ -53,6 +55,9 @@ function adicionar() {
         //faz nada
     } else if(key == "√") {
         numerostexto.push("√(")
+        controle++
+    }else if(key == "log") {
+        numerostexto.push("log(")
         controle++
     }else {
         numerostexto.push(key)
@@ -105,7 +110,32 @@ function adicionar() {
                             }
                         }, 1);
                         
-                    }else {
+                    }else if(numerostexto.join("").toString("").charAt(i) == "g") {
+                        let controleLog = true
+                        let numeroLog = ""
+                        let numeroLoopLog = 0
+                        while (controleLog == true) {
+
+                            if(string.charAt(numeroLoopLog) == "") {
+                                controleLog = false
+                            }
+                            if(string.charAt(numeroLoopLog) == ")") {
+                                controleLog = false
+                            }
+                            if(numeroLoopLog > 2) {
+                                numeroLog += string.charAt(numeroLoopLog)
+                            }
+                            numeroLoopLog++
+                        } 
+                        novaString = novaString.slice(2, numeroLoopLog)
+                        novaString += "Math.log10" + ""
+                        setTimeout(() => {
+                            if(novaString.charAt(novaString.length-1) != ")") {
+                                novaString += ")"
+                            }
+                        }, 1);
+                        
+                    } else {
                         novaString += numerostexto.join("").toString("").charAt(i)
                     }
                     
@@ -114,7 +144,11 @@ function adicionar() {
                     var ans;
                     setTimeout(() => {
                         ans = eval(novaString)
+                        if(ans != undefined || ans != NaN) {
                         res.innerHTML = ans
+                        } else {
+                            res.innerHTML = "Math error"
+                        }
                     }, 1);
                 } catch(error) {
                     res.innerHTML = "Syntax error"
